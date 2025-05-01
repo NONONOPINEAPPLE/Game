@@ -1,6 +1,6 @@
 // Game variables
 // session 1
-let gravity = 0.275;
+let gravity = 0.3;
 let bird_dy = 0;
 let score = 0;
 let frame = 0;
@@ -23,11 +23,21 @@ function getDifficultySettings() {
 
   if (selected === "easy") {
     pipeSpeed = 2;
+    gravity = 0.4;
+    pipe_gap = 300;
   } else if (selected === "medium") {
     pipeSpeed = 3;
+    gravity = 0.3;
+    pipe_gap = 250;
   } else if (selected === "hard") {
     pipeSpeed = 5;
-  }
+    gravity = 0.3;
+    pipe_gap = 200;
+  } else if (selected === "impossible") {
+  pipeSpeed = 10;
+  gravity = 0.15;
+  pipe_gap = 175;
+}
 }
 
 // session 2
@@ -62,7 +72,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // session 2
-document.addEventListener("click", (e) => {
+game_container.addEventListener("click", (e) => {
   if (game_state !== "Play") {
     game_state = "Play";
     startGame();
@@ -92,6 +102,9 @@ function startGame() {
 
   highScore = localStorage.getItem("flappyHighScore") || 0;
   score_display.textContent = "Score: " + score + " | Best: " + highScore;
+
+  backgroundMusic.play();
+
 
   gameInterval = setInterval(() => {
     // session 2
@@ -196,9 +209,7 @@ function checkCollision() {
   });
 }
 
-if (Number(score) > Number(highScore)) {
-  scoreSound.play();
-}
+
 
 
 // session 3
@@ -210,12 +221,17 @@ function endGame() {
     hitSound.play();
   }
 
+  if (Number(score) > Number(highScore)) {
+    localStorage.setItem("flappyHighScore", score);
+  }
+  hitSound.play();
   clearInterval(gameInterval);
   gameInterval = null;
-
   alert("Game Over! Your Score: " + score);
   resetGame();
 }
+
+
 
 // session 3
 // Reset game
@@ -249,4 +265,19 @@ const hitSound = new Audio("sounds/hit.mp3");
 const backgroundMusic = new Audio("sounds/background.mp3");
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.5;
-backgroundMusic.play();
+
+const muteBtn = document.getElementById("mute-btn");
+
+let musicMuted = false;
+
+
+muteBtn.addEventListener("click", () => {
+  if (musicMuted) {
+    backgroundMusic.play();
+    muteBtn.textContent = "Mute Music";
+  } else {
+    backgroundMusic.pause();
+    muteBtn.textContent = "Play Music";
+  }
+  musicMuted = !musicMuted;
+});
