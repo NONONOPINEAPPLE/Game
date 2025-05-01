@@ -54,6 +54,8 @@ span {
     left: 35%;
     background: url(asset/bird.png) no-repeat center center;
     background-size: contain;
+    transform-origin: center;
+    transition: trasnsform 0.1s linear;
 }
 
 .pipe {
