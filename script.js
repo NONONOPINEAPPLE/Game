@@ -4,6 +4,8 @@ let gravity = 0.3;
 let bird_dy = 0;
 let score = 0;
 let frame = 0;
+let loop2 = true;
+let dead = false;
 // session 2
 let game_state = "Start";
 
@@ -23,8 +25,8 @@ function getDifficultySettings() {
 
   if (selected === "easy") {
     pipeSpeed = 2;
-    gravity = 0.4;
-    pipe_gap = 300;
+    gravity = 0.3;
+    pipe_gap = 350;
   } else if (selected === "medium") {
     pipeSpeed = 3;
     gravity = 0.3;
@@ -34,10 +36,18 @@ function getDifficultySettings() {
     gravity = 0.3;
     pipe_gap = 200;
   } else if (selected === "impossible") {
-  pipeSpeed = 10;
-  gravity = 0.15;
-  pipe_gap = 175;
-}
+    pipeSpeed = 10;
+    gravity = 0.2;
+    pipe_gap = 100;
+  } else if (selected === "hell") {
+    pipeSpeed = 20;
+    gravity = 1;
+    pipe_gap = 50;
+  } else if (selected === "baby") {
+    pipeSpeed = 2;
+    gravity = 0.3;
+    pipe_gap = 998;
+  }
 }
 
 // session 2
@@ -50,12 +60,16 @@ let highScore = localStorage.getItem("flappyHighScore") || 0;
 
 // session 3
 function setScore(newScore) {
-  // if (newScore > score) {
-  //   scoreSound.play();
-  // }
+  if (dead == true) {
+    if (newScore > score) {
+      scoreSound.play();
+      dead = false;
+    }
+  }
 
   score = newScore;
-  score_display.textContent = "Score: " + score + " | Best: " + highScore;
+  score_display.textContent =
+    "Score: " + score + " | All Time Best: " + highScore;
 }
 
 // session 2
@@ -101,10 +115,10 @@ function startGame() {
   if (gameInterval !== null) return; // Prevent multiple intervals
 
   highScore = localStorage.getItem("flappyHighScore") || 0;
-  score_display.textContent = "Score: " + score + " | Best: " + highScore;
+  score_display.textContent =
+    "Score: " + score + " | All Time Best: " + highScore;
 
   backgroundMusic.play();
-
 
   gameInterval = setInterval(() => {
     // session 2
@@ -117,6 +131,8 @@ function startGame() {
     frame++;
 
     getDifficultySettings();
+
+    checkScore(score);
 
     // session 3
     // Every 200 frames (~2 seconds), create new pipe
@@ -209,12 +225,10 @@ function checkCollision() {
   });
 }
 
-
-
-
 // session 3
 // End game
 function endGame() {
+  dead = true;
   if (Number(score) > Number(highScore)) {
     localStorage.setItem("flappyHighScore", score);
   } else {
@@ -230,8 +244,6 @@ function endGame() {
   alert("Game Over! Your Score: " + score);
   resetGame();
 }
-
-
 
 // session 3
 // Reset game
@@ -270,7 +282,6 @@ const muteBtn = document.getElementById("mute-btn");
 
 let musicMuted = false;
 
-
 muteBtn.addEventListener("click", () => {
   if (musicMuted) {
     backgroundMusic.play();
@@ -281,3 +292,110 @@ muteBtn.addEventListener("click", () => {
   }
   musicMuted = !musicMuted;
 });
+
+//if (score == 10) {
+//  background1 = \
+//}
+function checkScore(score) {
+  let points = score;
+
+  if (points > 100) {
+    console.log("called");
+    bird.style.background =
+      "url('/asset/party bird.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+
+  if (points > 10) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 30) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 50) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 70) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 90) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+
+  if (points > 110) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 130) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 150) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 170) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 190) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+
+  if (points > 210) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 230) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 250) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 270) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+  if (points > 290) {
+    console.log("called");
+    game_container.style.background =
+      "url('/asset/night.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  }
+}
